@@ -74,7 +74,7 @@ public class ApiV1PostController {
 
     @PostMapping
     public RsData writeItems(
-            @RequestBody @Valid PostModifyReqBody reqBody
+            @RequestBody @Valid PostWriteReqBody reqBody
     ) {
         Post post = postService.write(reqBody.title, reqBody.content);
 
