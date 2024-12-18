@@ -24,7 +24,7 @@ public class ApiV1PostController {
     }
 
     @GetMapping("/{id}")
-    public Post getItems(@PathVariable Long id) {
+    public Post getItem(@PathVariable Long id) {
         return postService.findById(id).get();
     }
 
