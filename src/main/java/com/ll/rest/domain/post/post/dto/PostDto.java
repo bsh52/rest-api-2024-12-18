@@ -1,13 +1,12 @@
 package com.ll.rest.domain.post.post.dto;
 
 import com.ll.rest.domain.post.post.entity.Post;
-import com.ll.rest.global.jpa.entity.BaseTime;
 import lombok.Getter;
 
 import java.time.LocalDateTime;
 
 @Getter
-public class PostDto extends BaseTime {
+public class PostDto {
     private long id;
     private LocalDateTime createDate;
     private LocalDateTime modifyDate;
