@@ -44,7 +44,12 @@ public class ApiV1PostController {
 
         postService.delete(post);
 
-        return ResponseEntity.noContent().build();
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(new RsData<>(
+                        "200-1",
+                        "%d번 글이 삭제되었습니다.".formatted(id)
+                ));
     }
 
 
