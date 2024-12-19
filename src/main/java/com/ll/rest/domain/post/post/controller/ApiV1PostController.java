@@ -36,12 +36,12 @@ public class ApiV1PostController {
 
 
     @DeleteMapping("/{id}")
-    public RsData deleteItems(@PathVariable long id) {
+    public RsData<Void> deleteItems(@PathVariable long id) {
         Post post = postService.findById(id).get();
 
         postService.delete(post);
 
-        return new RsData("200-1", "%d번 글을 삭제하였습니다.".formatted(id));
+        return new RsData<>("200-1", "%d번 글을 삭제하였습니다.".formatted(id));
     }
 
 
@@ -80,11 +80,11 @@ public class ApiV1PostController {
     }
 
     @PostMapping
-    public RsData<Long> writeItems(
+    public RsData<PostDto> writeItems(
             @RequestBody @Valid PostWriteReqBody reqBody
     ) {
         Post post = postService.write(reqBody.title, reqBody.content);
 
-        return new RsData<>("200-1", "%d번 글이 작성되었습니다.".formatted(post.getId()), post.getId());
+        return new RsData<>("200-1", "%d번 글이 작성되었습니다.".formatted(post.getId()), new PostDto(post));
     }
 }
