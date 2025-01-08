@@ -3,12 +3,11 @@ package com.ll.rest.domain.post.post.controller;
 import com.ll.rest.domain.post.post.entity.Post;
 import com.ll.rest.domain.post.post.service.PostService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api/v1/posts")
@@ -24,5 +23,17 @@ public class ApiV1PostController {
     @GetMapping("/{id}")
     public Post getItem(@PathVariable long id) {
         return postService.findById(id).get();
+    }
+
+    @DeleteMapping("/{id}")
+    public Map<String, Object> deleteItem(@PathVariable long id) {
+        Post post = postService.findById(id).get();
+        postService.delete(post);
+
+        Map<String, Object> rsData = new HashMap<>();
+        rsData.put("resultCode", "200-1");
+        rsData.put("msg", "%d번 글 삭제 완료".formatted(id));
+
+        return rsData;
     }
 }
