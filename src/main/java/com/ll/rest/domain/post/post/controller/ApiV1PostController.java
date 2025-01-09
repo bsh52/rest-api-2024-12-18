@@ -8,8 +8,6 @@ import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
 import lombok.RequiredArgsConstructor;
 import org.hibernate.validator.constraints.Length;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
@@ -85,17 +83,13 @@ public class ApiV1PostController {
 
     // 응답코드를 수정하려면 ResponseEntity로 리턴하면 된다
     @PostMapping
-    public ResponseEntity<RsData<PostWriteResBody>> writeItem(@RequestBody @Valid PostWriteReqBody reqBody) {
+    public RsData<PostWriteResBody> writeItem(@RequestBody @Valid PostWriteReqBody reqBody) {
         Post post = postService.write(reqBody.title, reqBody.content);
 
-        return ResponseEntity
-                .status(HttpStatus.CREATED)
-                .body(
-                        new RsData<>(
-                                "201-1",
-                                "%d번 글 작성 완료".formatted(post.getId()),
-                                new PostWriteResBody(new PostDto(post), postService.count())
-                        )
-                );
+        return new RsData<>(
+                "201-1",
+                "%d번 글 작성 완료".formatted(post.getId()),
+                new PostWriteResBody(new PostDto(post), postService.count())
+        );
     }
 }
