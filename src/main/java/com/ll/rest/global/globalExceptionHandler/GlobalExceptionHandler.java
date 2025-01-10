@@ -4,6 +4,7 @@ import com.ll.rest.global.rsData.RsData;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -27,6 +28,9 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<RsData<Void>> handler(MethodArgumentNotValidException e) {
+        FieldError fieldError = e.getBindingResult().getFieldError();
+        String code = fieldError.getCode();
+        String field = fieldError.getField();
         String message = e.getBindingResult().getFieldError().getDefaultMessage();
 
         return ResponseEntity
@@ -34,7 +38,7 @@ public class GlobalExceptionHandler {
                 .body(
                         new RsData<>(
                                 "400-1",
-                                message
+                                field + " : " + message
                         )
                 );
     }
