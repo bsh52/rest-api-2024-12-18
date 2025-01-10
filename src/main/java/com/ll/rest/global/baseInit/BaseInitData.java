@@ -48,8 +48,11 @@ public class BaseInitData {
             return;
         }
 
-        Post post1 = postService.write("축구 하실 분", "14시까지");
-        Post post2 = postService.write("배구 하실 분", "15시까지");
-        Post post3 = postService.write("농구 하실 분", "16시까지");
+        Member memberUser1 = memberService.findByUsername("user1").get();
+        Member memberUser2 = memberService.findByUsername("user2").get();
+
+        Post post1 = postService.write(memberUser1, "축구 하실 분", "14시까지");
+        Post post2 = postService.write(memberUser1, "배구 하실 분", "15시까지");
+        Post post3 = postService.write(memberUser2, "농구 하실 분", "16시까지");
     }
 }
