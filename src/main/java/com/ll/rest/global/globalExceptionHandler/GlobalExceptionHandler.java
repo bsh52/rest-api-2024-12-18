@@ -60,8 +60,8 @@ public class GlobalExceptionHandler {
                 );
     }
 
-    @ExceptionHandler(IllegalArgumentException.class)
-    public ResponseEntity<RsData<Void>> handler(IllegalArgumentException e) {
+    @ExceptionHandler(RuntimeException.class)
+    public ResponseEntity<RsData<Void>> handler(RuntimeException e) {
 
         if (Appconfig.isNotProd()) { //운영모드일때는 실행 안함
             e.printStackTrace(); //콘솔에 에러 로그 출력
