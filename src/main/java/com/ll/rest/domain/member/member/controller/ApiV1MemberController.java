@@ -32,24 +32,15 @@ public class ApiV1MemberController {
     ) {
     }
 
-    record MemberJoinResBody(
-            MemberDto item,
-            long totalCount
-    ) {
-    }
-
     // 응답코드를 수정하려면 ResponseEntity로 리턴하면 된다
-    @PostMapping
-    public RsData<MemberJoinResBody> writeItem(@RequestBody @Valid MemberJoinReqBody reqBody) {
+    @PostMapping("/join")
+    public RsData<MemberDto> writeItem(@RequestBody @Valid MemberJoinReqBody reqBody) {
         Member member = memberService.join(reqBody.username, reqBody.password, reqBody.nickname);
 
         return new RsData<>(
                 "201-1",
                 "%s님 환영합니다.".formatted(member.getNickname()),
-                new MemberJoinResBody(
-                        new MemberDto(member),
-                        memberService.count()
-                )
+                new MemberDto(member)
         );
     }
 }
