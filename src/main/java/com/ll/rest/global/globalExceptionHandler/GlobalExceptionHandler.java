@@ -19,6 +19,9 @@ import java.util.stream.Collectors;
 public class GlobalExceptionHandler {
     @ExceptionHandler(NoSuchElementException.class)
     public ResponseEntity<RsData<Void>> handler(NoSuchElementException e) {
+
+        e.printStackTrace(); //콘솔에 에러 로그 출력
+
         return ResponseEntity
                 .status(HttpStatus.NOT_FOUND)
                 .body(
@@ -31,6 +34,9 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<RsData<Void>> handler(MethodArgumentNotValidException e) {
+
+        e.printStackTrace();
+
         String message = e.getBindingResult()
                 .getAllErrors()
                 .stream()
