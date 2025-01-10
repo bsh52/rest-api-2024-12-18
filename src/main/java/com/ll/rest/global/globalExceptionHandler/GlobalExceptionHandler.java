@@ -37,7 +37,7 @@ public class GlobalExceptionHandler {
                 .status(HttpStatus.BAD_REQUEST)
                 .body(
                         new RsData<>(
-                                "400-1",
+                                "400-"+ field + "-" + code,
                                 field + " : " + message
                         )
                 );
